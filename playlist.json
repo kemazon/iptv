@@ -1,5 +1,5 @@
 [
-    {"name": "TEST", "url": "https://translate.google.com/website?sl=en&tl=es&hl=es&client=srp&u=https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"},
+    {"name": "TEST2", "url": "https://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8?ref=developerinsider.co"},
     {"name": "TV5", "url": "https://ott.m3u8.nathcreqtives.com/tv5/manifest.m3u8"},
     {"name": "Kapamilya Channel", "url": "https://ott.m3u8.nathcreqtives.com/kapamilyachannel/manifest.m3u8"},
     {"name": "One PH", "url": "https://ott.m3u8.nathcreqtives.com/oneph/manifest.m3u8"},
