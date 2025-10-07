@@ -1,5 +1,8 @@
 #EXTM3U player-buffer="1" url-tvg="https://i.mjh.nz/PlutoTV/mx.xml"
 
+#EXTINF:-1 tvg-shift="0" tvg-id="foro-tv" tvg-logo="http://images.pluto.tv/channels/5dcb62e63d4d8f0009f36881/colorLogoPNG.png", Foro TV
+https://notusaauth.univision.com/api/v3/akamai-auth/token-auth?url=https://channel02secure-notusa.akamaized.net/hls/live/2023914/event01/index.m3u8&redirect=true
+
 #EXTINF:-1 tvg-shift="0" tvg-id="pluto-tv-cine-accion" tvg-logo="http://images.pluto.tv/channels/5dcb62e63d4d8f0009f36881/colorLogoPNG.png", Cine Acción
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5dcb62e63d4d8f0009f36881/master.m3u8?advertisingId=&appName=web&appVersion=unknown&appStoreUrl=&architecture=&buildVersion=&clientTime=0&deviceDNT=0&deviceId=87bddad0-a6d7-11ee-a1fa-d77efe788e63&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&sid=5309bee6-37fe-45f5-8d85-113b72686b23&userId=&serverSideAds=true
 
