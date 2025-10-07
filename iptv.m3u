@@ -5,6 +5,8 @@ http://notusaauth.univision.com/api/v3/akamai-auth/token-auth?url=https://channe
 
 #EXTINF:-1 tvg-shift="0" tvg-id="adn-40" tvg-logo="http://images.pluto.tv/channels/5dcb62e63d4d8f0009f36881/colorLogoPNG.png", ADN 40
 https://mdstrm.com/live-stream-playlist/60b578b060947317de7b57ac.m3u8
+#EXTINF:-1 tvg-shift="0" tvg-id="adn-40" tvg-logo="http://images.pluto.tv/channels/5dcb62e63d4d8f0009f36881/colorLogoPNG.png", ADN 40 - 360p
+https://us-b4-p-e-mg17.cdn.mdstrm.com/live-stream-gdai/linear/hls/pa/event/ajJQI39aQd69Omr0hRZw9Q/stream/0b95df3b-ce57-45a5-92ff-5207c98875d9:CBF2/variant/4b96ab136e9961c5ed98d3c79d66a874/bandwidth/915200.m3u8?aid=5fea0f3673148d5d52cf6a76&adInsertionGoogleStreamId=0b95df3b-ce57-45a5-92ff-5207c98875d9%3ACBF2&pid=yKeF4QDYeKFi0UN5VQoKuwhInNs9sNo3&sid=Qk21ScHIGiXe0y0WDLEI2O3SCT8KxAtF&uid=JV00CjBtw3FW0JgNfhVqv5tFNxLqKjGf&es=us-b4-p-e-mg17.cdn.mdstrm.com&ote=1759888750913&ot=shLellD_RaVrG4K3IAx0Ew&proto=https&pz=us
 
 #EXTINF:-1 tvg-shift="0" tvg-id="pluto-tv-cine-accion" tvg-logo="http://images.pluto.tv/channels/5dcb62e63d4d8f0009f36881/colorLogoPNG.png", Cine Acción
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5dcb62e63d4d8f0009f36881/master.m3u8?advertisingId=&appName=web&appVersion=unknown&appStoreUrl=&architecture=&buildVersion=&clientTime=0&deviceDNT=0&deviceId=87bddad0-a6d7-11ee-a1fa-d77efe788e63&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&sid=5309bee6-37fe-45f5-8d85-113b72686b23&userId=&serverSideAds=true
