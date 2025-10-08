@@ -4,7 +4,8 @@ Copy IPTV.sh & Botones.sh to tools folder
 Edit IPTV.sh to replace playlist URL
   PLAYLIST="http://192.168.89.16/izzi.m3u"
 
-install mpv:
+install mpv and socat:
+  sudo apt install socat
   sudo apt install mpv --no-install-recommends
   
 copy lua files to mpv scripts folder.
