@@ -2,12 +2,12 @@ function show_track()
     local artist = mp.get_property("metadata/by-key/artist")
     local title = mp.get_property("media-title")
 
-    -- Si no hay artista, solo muestra el título
+    -- Si no hay artista, solo muestra el tÃ­tulo
     if artist == nil then
-        artist = "Desconocido"
+        artist = ""
     end
     if title == nil then
-        title = "Sin título"
+        title = "Sin tÃ­tulo"
     end
 
     local full_title = artist .. " - " .. title
