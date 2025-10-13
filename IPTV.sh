@@ -1,11 +1,23 @@
 #!/bin/bash
 
+#URL Playlist IPTV
 PLAYLIST="http://192.168.89.16/izzi.m3u"
+
+#Borra URL temporal
+rm /tmp/iptv_playlist_url
+
+#Desactiva mostrar Letras
+rm /tmp/lyric
+
+#Guardamos localmente la URL
+echo "$PLAYLIST" > /tmp/iptv_playlist_url
+
 #Cerrar instancias de reproductores
-echo 'keypress q' | socat - /tmp/mpvsocket
+echo 'by @Kemazon'
 echo 'quit' | socat - /tmp/mpvsocket
 
 #bajar consumo de CPU
+
 sudo sh -c 'echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor'
 sudo sh -c 'echo powersave > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor'
 sudo sh -c 'echo powersave > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor'
