@@ -332,9 +332,15 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
         rm -f /tmp/btnPadDown
     fi
 	
-	#Mostrar nombre de archivo/stream
-	if test -e /tmp/btnFn && test -e /tmp/btnX; then
+	#Mostrar nombre de archivo
+	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -x "mpv" > /dev/null && ! pgrep -x "IPTV.sh" > /dev/null; then
         echo 'show-text ${filename}' | socat - /tmp/mpvsocket
+        rm -f /tmp/btnFn /tmp/btnX
+    fi
+	
+	#Mostrar nombre de Stream (IPTV)
+	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -x "IPTV.sh" > /dev/null; then
+        echo 'show-text ${media-title}' | socat - /tmp/mpvsocket
         rm -f /tmp/btnFn /tmp/btnX
     fi
 	
@@ -375,7 +381,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Escanear archivos de música y actualizar playlist.m3u
-	if test -e /tmp/btnFn && test -e /tmp/btnA; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnA ] && ! pgrep -x "IPTV.sh" > /dev/null; then
 		# Contar archivos en la carpeta
 		num_archivos=$(find /roms2/music -type f \( -name "*.m4a" -o -name "*.mp4" -o -name "*.ogg" -o -name "*.mp3" -o -name "*.aac" \) | wc -l | tr -d ' ')
 
