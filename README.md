@@ -17,7 +17,7 @@ agregar la tarea a crontab (crontab -e):
 
 reinicia el dispositivo.
 
-## Controles ##
+### Controles ###
 
 dpad Izquierdo   ==  Canal previo
 dpad Derecho     ==  Siguiente canal
