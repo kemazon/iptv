@@ -34,3 +34,5 @@ Fn + Y           ==  Activar/Desactivar modo aleatorio en playlist
 Fn + A           ==  Descarga playlist y vuelve a cargarla
 Fn + X           ==  Muestra url del canal actual
 Fn + B           ==  Muestra información completa sobre el stream/archivo actual
+
+https://t.me/alfredo_s
