@@ -1,38 +1,69 @@
-# iptv
-Copiar IPTV.sh & Botones.sh a la carpeta tools
+# 📺 IPTV para R36S
 
->Editar IPTV.sh y reemplazar la URL de la lista IPTV
-  PLAYLIST="http://192.168.89.16/izzi.m3u"
+Este proyecto permite reproducir listas **IPTV (.m3u)** en la consola **R36S**, utilizando **mpv** y scripts personalizados para controlar los canales mediante los botones del dispositivo.
 
-Instalar mpv y socat:
-  sudo apt install socat
-  sudo apt install mpv --no-install-recommends
-  
-Copiar archivos .LUA a la carpeta:
-  /home/ark/.config/mpv/scripts
+---
 
-agregar la tarea a crontab (crontab -e):
-  @reboot bash /roms2/tools/Botones.sh
+## ⚙️ Instalación
 
-reinicia el dispositivo.
+1. **Copiar los scripts**
+   - Copia los archivos `IPTV.sh` y `Botones.sh` en la carpeta:
+     ```
+     /roms2/tools
+     ```
 
-## Controles ##
+2. **Editar la URL de la lista IPTV**
+   - Abre el archivo `IPTV.sh` y reemplaza la URL del playlist:
+     ```bash
+     PLAYLIST="http://192.168.89.16/izzi.m3u"
+     ```
 
-dpad Izquierdo   ==  Canal previo
-dpad Derecho     ==  Siguiente canal
+3. **Instalar dependencias**
+   ```bash
+   sudo apt install socat
+   sudo apt install mpv --no-install-recommends
 
-Stick derecho:
-Pulsar           ==  Recargar canal actual / Elegir canal en playlist
-Arriba/abajo     ==  muestra el playlist y navegar en el
-Izq/der          ==  avanza/retrocede 20 canales en la lista
+Copiar los scripts LUA
 
-Stick Izquierdo:
-Botón            ==  Cambiar relación de aspecto
+Copia todos los archivos .lua en la carpeta:
 
-Fn + Stick izquierdo Abajo = Mostrar hora y bateria restante
-Fn + Y           ==  Activar/Desactivar modo aleatorio en playlist
-Fn + A           ==  Descarga playlist y vuelve a cargarla
-Fn + X           ==  Muestra url del canal actual
-Fn + B           ==  Muestra información completa sobre el stream/archivo actual
+    /home/ark/.config/mpv/scripts
 
-https://t.me/alfredo_s
+Agregar tarea al inicio del sistema
+
+    crontab -e
+
+
+Agrega la siguiente línea al final:
+
+        @reboot bash /roms2/tools/Botones.sh
+
+Reinicia el dispositivo para aplicar los cambios.
+
+##🎮 Controles
+
+	Control	Acción
+	
+	D-Pad Izquierdo	=	Canal previo
+   	D-Pad Derecho	=	Siguiente canal
+   	Stick Derecho (Pulsar)	=	Recargar canal actual / Elegir canal en playlist
+   	Stick Derecho Arriba/Abajo	=	Mostrar playlist y navegar
+   	Stick Derecho Izq/Der	=	Avanza/retrocede 20 canales en la lista
+   	Stick Izquierdo (Botón)	=	Cambiar relación de aspecto
+   	Fn + Stick Izquierdo Abajo	=	Mostrar hora y batería restante
+   	Fn + Y	=	Activar/desactivar modo aleatorio en playlist
+   	Fn + A	=	Descargar playlist y recargarla
+   	Fn + X	=	Mostrar URL del canal actual
+   	Fn + B	=	Mostrar información completa del stream/archivo actual
+	
+🧩 Notas
+
+    El script Botones.sh debe permanecer en ejecución para que los controles funcionen.
+
+    Se recomienda usar mpv sin dependencias adicionales para reducir el consumo de recursos.
+
+    El modo aleatorio y las funciones LUA están integradas directamente en los scripts.
+
+🖼️ Capturas de Pantalla
+
+
