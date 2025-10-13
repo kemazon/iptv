@@ -1,4 +1,5 @@
-# iptv
+<em> # IPTV para R36s </em>
+
 Copiar IPTV.sh & Botones.sh a la carpeta tools
 
 >Editar IPTV.sh y reemplazar la URL de la lista IPTV
