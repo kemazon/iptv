@@ -23,37 +23,39 @@ Este proyecto permite reproducir listas **IPTV (.m3u)** en la consola **R36S**, 
    sudo apt install socat
    sudo apt install mpv --no-install-recommends
 
-    Copiar los scripts LUA
+Copiar los scripts LUA
 
-        Copia todos los archivos .lua en la carpeta:
+Copia todos los archivos .lua en la carpeta:
 
     /home/ark/.config/mpv/scripts
 
 Agregar tarea al inicio del sistema
 
-    Edita el crontab:
+    crontab -e
 
-crontab -e
 
 Agrega la siguiente línea al final:
 
         @reboot bash /roms2/tools/Botones.sh
 
-    Reinicia el dispositivo para aplicar los cambios.
+Reinicia el dispositivo para aplicar los cambios.
 
-🎮 Controles
-Control	Acción
-D-Pad Izquierdo	Canal previo
-D-Pad Derecho	Siguiente canal
-Stick Derecho (Pulsar)	Recargar canal actual / Elegir canal en playlist
-Stick Derecho Arriba/Abajo	Mostrar playlist y navegar
-Stick Derecho Izq/Der	Avanza/retrocede 20 canales en la lista
-Stick Izquierdo (Botón)	Cambiar relación de aspecto
-Fn + Stick Izquierdo Abajo	Mostrar hora y batería restante
-Fn + Y	Activar/desactivar modo aleatorio en playlist
-Fn + A	Descargar playlist y recargarla
-Fn + X	Mostrar URL del canal actual
-Fn + B	Mostrar información completa del stream/archivo actual
+##🎮 Controles
+
+	Control	Acción
+	
+	D-Pad Izquierdo	=	Canal previo
+   	D-Pad Derecho	=	Siguiente canal
+   	Stick Derecho (Pulsar)	=	Recargar canal actual / Elegir canal en playlist
+   	Stick Derecho Arriba/Abajo	=	Mostrar playlist y navegar
+   	Stick Derecho Izq/Der	=	Avanza/retrocede 20 canales en la lista
+   	Stick Izquierdo (Botón)	=	Cambiar relación de aspecto
+   	Fn + Stick Izquierdo Abajo	=	Mostrar hora y batería restante
+   	Fn + Y	=	Activar/desactivar modo aleatorio en playlist
+   	Fn + A	=	Descargar playlist y recargarla
+   	Fn + X	=	Mostrar URL del canal actual
+   	Fn + B	=	Mostrar información completa del stream/archivo actual
+	
 🧩 Notas
 
     El script Botones.sh debe permanecer en ejecución para que los controles funcionen.
@@ -64,10 +66,4 @@ Fn + B	Mostrar información completa del stream/archivo actual
 
 🖼️ Capturas de Pantalla
 
-A continuación, puedes agregar imágenes para mostrar cómo luce el sistema IPTV en la R36S:
-Descripción	Imagen
-Menú principal de canales	
-Visualización de canal en mpv	
-Lista IPTV mostrada en pantalla	
-Información del stream	
-Modo aleatorio activado	
+
