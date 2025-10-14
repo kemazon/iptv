@@ -1,9 +1,10 @@
 #!/bin/bash
 
 PlaylistM3u="/roms2/music/playlist.m3u"
-URL_IPTV=$(cat /tmp/iptv_playlist_url)
 
 JOYSTICK_DEVICE="/dev/input/event2"
+
+#Damos permisos de escritura para establecer la velocidad tope del CPU
 sudo chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
 if [ "$(whoami)" != "ark" ]; then
@@ -190,10 +191,6 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
         #echo 'key q' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "q"] }' | socat - /tmp/mpvsocket
 		#echo 'quit' | socat - /tmp/mpvsocket
-		killall Musica_Play.sh
-		killall Musica_Play_Play
-		killall IPTV.sh
-		killall ffplay
 		killall mpv
         echo "Saliendo..."
 		
@@ -206,35 +203,35 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 
     # Siguiente Musica
-    if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadDer ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+    if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadDer ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'playlist-next' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "next"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnPadDer
     fi
 	
 	# Anterior Musica (Pantalla ON)
-	if [ -e /tmp/btnPadIzq ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnPadIzq ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'playlist-prev' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "prev"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnPadIzq
 	fi
 	
 	# Siguiente Musica (Pantalla ON)
-	if [ -e /tmp/btnPadDer ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnPadDer ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'playlist-next' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "next"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnPadDer
 	fi
 	
 	# Anterior Musica (Pantalla OFF)
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadIzq ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadIzq ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'playlist-prev' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "prev"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnPadIzq
 	fi
 	
 	# Siguiente Musica (Pantalla OFF)
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadDer ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnPadDer ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'playlist-prev' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "prev"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnPadDer
@@ -255,7 +252,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	fi
 	
     # Siguiente IPTV
-    if [ -e /tmp/btnPadDer ] && pgrep -x "IPTV.sh" > /dev/null; then
+    if [ -e /tmp/btnPadDer ] && pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'playlist-next' | socat - /tmp/mpvsocket
 		echo 'show-text Cargando...' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "next"] }' | socat - /tmp/mpvsocket
@@ -263,7 +260,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Anterior IPTV
-	if [ -e /tmp/btnPadIzq ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnPadIzq ] && pgrep -f "IPTV.sh" > /dev/null; then
         #echo 'playlist-prev' | socat - /tmp/mpvsocket
 		echo 'show-text Cargando...' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "prev"] }' | socat - /tmp/mpvsocket
@@ -300,7 +297,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Cambiar relación de aspecto (IPTV)
-	if [ -e /tmp/btnStick1 ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnStick1 ] && pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key A' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "A"] }' | socat - /tmp/mpvsocket
 		rm -f /tmp/btnStick1
@@ -333,13 +330,13 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Mostrar nombre de archivo
-	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -x "mpv" > /dev/null && ! pgrep -x "IPTV.sh" > /dev/null; then
+	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -x "mpv" > /dev/null && ! pgrep -f "IPTV.sh" > /dev/null; then
         echo 'show-text ${filename}' | socat - /tmp/mpvsocket
         rm -f /tmp/btnFn /tmp/btnX
     fi
 	
 	#Mostrar nombre de Stream (IPTV)
-	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if  [ -e /tmp/btnFn ] && [ -e /tmp/btnX ] && pgrep -f "IPTV.sh" > /dev/null; then
         echo 'show-text ${media-title}' | socat - /tmp/mpvsocket
         rm -f /tmp/btnFn /tmp/btnX
     fi
@@ -353,27 +350,55 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	
 	#Activar/Desactivar modo aleatorio (IPTV)
 	if [ -e /tmp/btnFn ] && [ -e /tmp/btnY ] && pgrep -x "IPTV.sh" > /dev/null; then
-        #echo 'key Alt+s' | socat - /tmp/mpvsocket
-		echo '{ "command": ["keypress", "Alt+s"] }' | socat - /tmp/mpvsocket
+		URL_IPTV=$(cat /tmp/iptv_playlist_url)
+        #echo 'key Alt+m' | socat - /tmp/mpvsocket
+		#echo '{ "command": ["keypress", "Alt+m"] }' | socat - /tmp/mpvsocket
+		if [ ! -e /tmp/shuffle ]; then
+			touch /tmp/shuffle
+			echo '{ "command": ["playlist-shuffle"] }' | socat - /tmp/mpvsocket
+			#echo 'show-text "Modo aleatorio ♫"' | socat - /tmp/mpvsocket
+			echo '{ "command": ["show-text", "Modo aleatorio [☺]", 4000, 1] }' | socat - /tmp/mpvsocket
+		else
+			rm -f /tmp/shuffle
+			echo "{ \"command\": [\"loadfile\", \"$URL_IPTV\", \"replace\"] }"| socat - /tmp/mpvsocket
+			#echo '{ "command": ["playlist-unshuffle"] }' | socat - /tmp/mpvsocket
+			sleep 1
+			echo '{ "command": ["show-text", "Modo aleatorio [   ]", 4000, 1] }' | socat - /tmp/mpvsocket
+		fi
 		rm -f /tmp/btnFn /tmp/btnY
     fi
+
 	
 	#Activar/Desactivar modo aleatorio (Musica REPRODUCTOR)
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnY ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnY ] && ( pgrep -f "Musica_Play_Player.sh" > /dev/null || pgrep -x "Musica_Play.sh" > /dev/null ); then
         #echo 'key Alt+m' | socat - /tmp/mpvsocket
-		echo '{ "command": ["keypress", "Alt+m"] }' | socat - /tmp/mpvsocket
+		#echo '{ "command": ["keypress", "Alt+m"] }' | socat - /tmp/mpvsocket
+		#echo 'show-text "Modo aleatorio ♫"' | socat - /tmp/mpvsocket
+		if [ ! -e /tmp/shuffle ]; then
+			touch /tmp/shuffle
+			echo '{ "command": ["playlist-shuffle"] }' | socat - /tmp/mpvsocket
+			#echo 'show-text "Modo aleatorio ♫"' | socat - /tmp/mpvsocket
+			echo '{ "command": ["show-text", "Modo aleatorio [☺]", 4000, 1] }' | socat - /tmp/mpvsocket
+		else
+			rm -f /tmp/shuffle
+			echo "{ \"command\": [\"loadfile\", \"$PlaylistM3u\", \"replace\"] }"| socat - /tmp/mpvsocket
+			#echo '{ "command": ["playlist-unshuffle"] }' | socat - /tmp/mpvsocket
+			sleep 1
+			echo '{ "command": ["show-text", "Modo aleatorio [   ]", 4000, 1] }' | socat - /tmp/mpvsocket
+		fi
 		rm -f /tmp/btnFn /tmp/btnY
     fi
 	
 	#Activar/Desactivar modo aleatorio (Musica FONDO)
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnY ] && pgrep -x "mpv" > /dev/null && ! pgrep -x "IPTV.sh" > /dev/null && ! pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnY ] && pgrep -x "mpv" > /dev/null && ! pgrep -f "IPTV.sh" > /dev/null && ! pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'key Alt+m' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "Alt+m"] }' | socat - /tmp/mpvsocket
 		rm -f /tmp/btnFn /tmp/btnY
     fi
 	
 	#Recargar y volver a reproducir Lista IPTV
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnA ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnA ] && pgrep -f "IPTV.sh" > /dev/null; then
+		URL_IPTV=$(cat /tmp/iptv_playlist_url)
 		printf 'show-text "%s"\n' "Actualizando... $URL_IPTV" | socat - /tmp/mpvsocket
 		#echo "show-text 'Actualizando... $URL_IPTV'" | socat - /tmp/mpvsocket
 		echo "{ \"command\": [\"loadfile\", \"$URL_IPTV\", \"replace\"] }"| socat - /tmp/mpvsocket
@@ -381,7 +406,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Escanear archivos de música y actualizar playlist.m3u
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnA ] && ! pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnA ] && ! pgrep -f "IPTV.sh" > /dev/null; then
 		# Contar archivos en la carpeta
 		num_archivos=$(find /roms2/music -type f \( -name "*.m4a" -o -name "*.mp4" -o -name "*.ogg" -o -name "*.mp3" -o -name "*.aac" \) | wc -l | tr -d ' ')
 
@@ -422,7 +447,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 	
 	#Navegar arriba IPTV
-	if [ -e /tmp/btnS2Arriba ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnS2Arriba ] && pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key p' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "p"] }' | socat - /tmp/mpvsocket
 		#echo 'key UP' | socat - /tmp/mpvsocket
@@ -431,7 +456,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	fi
 	
 	#Navegar abajo IPTV
-	if [ -e /tmp/btnS2Abajo ] && pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnS2Abajo ] && pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key p' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "p"] }' | socat - /tmp/mpvsocket
 		#echo 'key DOWN' | socat - /tmp/mpvsocket
@@ -440,28 +465,28 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	fi
 
 	#Navegar Izquierda IPTV
-	if [ -e /tmp/btnS2Izq ]&& pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnS2Izq ]&& pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key LEFT' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "LEFT"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnS2Izq
     fi
 
 	#Navegar Derecha IPTV
-	if [ -e /tmp/btnS2Der ]&& pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnS2Der ]&& pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key RIGHT' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "RIGHT"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnS2Der
     fi
 	
 	#Enter IPTV
-	if [ -e /tmp/btnStick2 ]&& pgrep -x "IPTV.sh" > /dev/null; then
+	if [ -e /tmp/btnStick2 ]&& pgrep -f "IPTV.sh" > /dev/null; then
 		#echo 'key ENTER' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "ENTER"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnStick2
     fi
 	
 	#Navegar arriba Musica
-	if [ -e /tmp/btnS2Arriba ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnS2Arriba ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'key p' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "p"] }' | socat - /tmp/mpvsocket
 		#echo 'key UP' | socat - /tmp/mpvsocket
@@ -470,7 +495,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	fi
 	
 	#Navegar abajo Musica
-	if [ -e /tmp/btnS2Abajo ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnS2Abajo ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'key p' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "p"] }' | socat - /tmp/mpvsocket
 		#echo 'key DOWN' | socat - /tmp/mpvsocket
@@ -479,21 +504,21 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
 	fi
 
 	#Navegar Izquierda Musica
-	if [ -e /tmp/btnS2Izq ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnS2Izq ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'key LEFT' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "LEFT"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnS2Izq
     fi
 
 	#Navegar Derecha Musica
-	if [ -e /tmp/btnS2Der ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnS2Der ] && [ "$(cat /sys/devices/platform/backlight/backlight/backlight/brightness)" -gt 0 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'key RIGHT' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "RIGHT"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnS2Der
     fi
 	
 	#Enter Musica
-	if [ -e /tmp/btnStick2 ]&& pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnStick2 ]&& pgrep -f "Musica_Play_Player.sh" > /dev/null; then
 		#echo 'key p' | socat - /tmp/mpvsocket
 		#echo '{ "command": ["keypress", "p"] }' | socat - /tmp/mpvsocket
         #echo 'key ENTER' | socat - /tmp/mpvsocket
@@ -502,7 +527,7 @@ evtest "$JOYSTICK_DEVICE" | while read -r line; do
     fi
 
 	#Activar Letras de canciones.
-	if [ -e /tmp/btnFn ] && [ -e /tmp/btnR1 ] && pgrep -x "Musica_Play_Pla" > /dev/null; then
+	if [ -e /tmp/btnFn ] && [ -e /tmp/btnR1 ] && pgrep -f "Musica_Play_Player.sh" > /dev/null; then
         #echo 'key Alt+r' | socat - /tmp/mpvsocket
 		echo '{ "command": ["keypress", "Alt+r"] }' | socat - /tmp/mpvsocket
         rm -f /tmp/btnFn /tmp/btnR1
