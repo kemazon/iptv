@@ -55,6 +55,7 @@ Reinicia el dispositivo para aplicar los cambios.
    	Fn + A	=	Descargar playlist y recargarla
    	Fn + X	=	Mostrar URL del canal actual
    	Fn + B	=	Mostrar información completa del stream/archivo actual
+	Fn + L1 = En cualquier parte del sistema, conecta al último dispositivo bluetooth usado (depende del proyecto BluetoothForR36).
 	
 🧩 Notas
 
