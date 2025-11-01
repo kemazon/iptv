@@ -20,6 +20,7 @@ Este proyecto permite reproducir listas **IPTV (.m3u)** en la consola **R36S**, 
 
 3. **Instalar dependencias**
    ```bash
+   sudo apt install pulseaudio
    sudo apt install socat
    sudo apt install mpv --no-install-recommends
 
